@@ -1,7 +1,7 @@
 module.exports = 
   port: Number(process.env.PORT or 8888)
   db:
-    url: 'mongodb://localhost/sample-db'
+    url: 'mongodb://localhost/thyme-dev'
   session:
     secret: 'illlklklklk'
     cookie_secret: 'slfklksdjf'
