@@ -11,7 +11,7 @@ module.exports =
     )
 
   new: (req, res) ->
-    params = Client.params req.body.client
+    params = Client.deserialize req.body.client
     new Client(params).save (error, client) ->
       if error
         res.send 

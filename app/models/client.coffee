@@ -5,10 +5,14 @@ clientSchema = new mongoose.Schema
     type: String
     unique: true
     required: true
-  contact:
+  email:
     type: String
     unique: true
     required: true
+    trim: true
+    lowercase: true
+  contact:
+    type: String
 
 Client = mongoose.model 'Client', clientSchema
 
@@ -20,7 +24,7 @@ Client.schema.methods.serialize = (meta) ->
   client: @serializeToObj()
   meta: meta
 
-Client.schema.methods.deserialize = (params) ->
+Client.deserialize = (params) ->
   name: params.name
   contact: params.contact
 
