@@ -8,16 +8,16 @@ timerSchema = new mongoose.Schema
       type: Boolean
       default: false
 
-Timer = mongoose.model 'Timer', timerSchema
-
-Timer.schema.methods.serializeToObj = ->
+timerSchema.methods.serializeToObj = ->
   id: @id
   name: @name
   timerId: @timerId
 
-Timer.schema.methods.serialize = (meta) ->
+timerSchema.methods.serialize = (meta) ->
   timer: @serializeToObj()
   meta: meta
+
+Timer = mongoose.model 'Timer', timerSchema
 
 Timer.serialize = (tasks, meta) ->
   timers: tasks.map (client) -> timer.serializeToObj()

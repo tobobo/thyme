@@ -6,16 +6,16 @@ taskSchema = new mongoose.Schema
     unique: true
     required: true
 
-Task = mongoose.model 'Task', taskSchema
-
-Task.schema.methods.serializeToObj = ->
+taskSchema.methods.serializeToObj = ->
   id: @id
   name: @name
   clientId: @clientId
 
-Task.schema.methods.serialize = (meta) ->
+taskSchema.methods.serialize = (meta) ->
   task: @serializeToObj()
   meta: meta
+
+Task = mongoose.model 'Task', taskSchema
 
 Task.serialize = (tasks, meta) ->
   tasks: tasks.map (client) -> client.serializeToObj()

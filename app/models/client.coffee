@@ -14,18 +14,19 @@ clientSchema = new mongoose.Schema
   contact:
     type: String
 
-Client = mongoose.model 'Client', clientSchema
-
-Client.schema.methods.serializeToObj = ->
+clientSchema.methods.serializeToObj = ->
   id: @id
   email: @email
 
-Client.schema.methods.serialize = (meta) ->
+clientSchema.methods.serialize = (meta) ->
   client: @serializeToObj()
   meta: meta
 
+Client = mongoose.model 'Client', clientSchema
+
 Client.deserialize = (params) ->
   name: params.name
+  email: params.email
   contact: params.contact
 
 Client.serialize = (clients, meta) ->

@@ -12,13 +12,14 @@ module.exports =
 
   new: (req, res) ->
     params = Client.deserialize req.body.client
-    new Client(params).save (error, client) ->
+    newClient = new Client(params)
+    newClient.save (error, client) ->
       if error
         res.send 
           meta:
             error: error
         return
-      
+      console.log('client is', newClient);
       res.send client.serialize()
 
 
