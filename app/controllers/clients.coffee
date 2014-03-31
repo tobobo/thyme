@@ -19,7 +19,7 @@ module.exports =
           meta:
             error: error
         return
-      console.log('client is', newClient);
+
       res.send client.serialize()
 
 
