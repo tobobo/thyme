@@ -40,7 +40,14 @@ Client = mongoose.model 'Client', clientSchema
 Client.deserialize = (params) ->
   name: params.name
   email: params.email
+  slug: params.slug
   contact: params.contact
+
+Client.params = (params) ->
+  result = {}
+  for p, v of this.deserialize params
+    if v? then result[p] = v
+  result
 
 Client.serialize = (clients, meta) ->
   clients: clients.map (client) -> client.serializeToObj()
