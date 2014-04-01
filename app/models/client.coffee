@@ -17,6 +17,8 @@ clientSchema = new mongoose.Schema
 clientSchema.methods.serializeToObj = ->
   id: @id
   email: @email
+  name: @name
+  contact: @contact
 
 clientSchema.methods.serialize = (meta) ->
   client: @serializeToObj()
