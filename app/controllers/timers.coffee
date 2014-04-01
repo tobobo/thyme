@@ -5,8 +5,6 @@ module.exports =
     Timer.find
       taskId: req.query.taskId
     .exec().then((timers) ->
-      console.log 'length of timers', timers.length
-      console.log 'serialized timers', Timer.serialize(timers)
       res.send Timer.serialize(timers)
     , (error) ->
       console.log 'timer error'
