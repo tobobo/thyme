@@ -12,11 +12,10 @@ module.exports =
 
   new: (req, res) ->
     params = Task.deserialize req.body.task
-    console.log 'params are', params
     newTask = new Task(params)
-    console.log 'new task is', newTask
     newTask.save (error, task) ->
       if error
+        res.statusCode = 422
         res.send
           meta:
             error: error

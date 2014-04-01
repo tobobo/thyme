@@ -16,6 +16,7 @@ module.exports =
     newClient = new Client(params)
     newClient.save (error, client) ->
       if error
+        res.statusCode = 422
         res.send 
           meta:
             error: error

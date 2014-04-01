@@ -1,7 +1,11 @@
 mongoose = require 'mongoose'
+S = require 'string'
 
 taskSchema = new mongoose.Schema
   name:
+    type: String
+    required: true
+  slug:
     type: String
     required: true
   clientId:
@@ -11,11 +15,17 @@ taskSchema = new mongoose.Schema
 taskSchema.methods.serializeToObj = ->
   id: @id
   name: @name
+  slug: @slug
   clientId: @clientId
 
 taskSchema.methods.serialize = (meta) ->
   task: @serializeToObj()
   meta: meta
+
+taskSchema.pre 'validate', (next, done) ->
+  if @name?
+    @slug = S(@name).slugify()
+  next()
 
 Task = mongoose.model 'Task', taskSchema
 
@@ -24,8 +34,7 @@ Task.serialize = (tasks, meta) ->
   meta: meta
 
 Task.deserialize = (params) ->
-  name: params.name
-  clientId: params.clientId
+  taskSchema.methods.serializeToObj.call params
 
 Task.params = (params) ->
   result = {}

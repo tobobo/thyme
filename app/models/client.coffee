@@ -4,7 +4,6 @@ S = require 'string'
 clientSchema = new mongoose.Schema
   name:
     type: String
-    unique: true
     required: true
   slug:
     type: String
@@ -12,7 +11,6 @@ clientSchema = new mongoose.Schema
     required: true
   email:
     type: String
-    unique: true
     required: true
     trim: true
     lowercase: true
@@ -31,17 +29,14 @@ clientSchema.methods.serialize = (meta) ->
   meta: meta
 
 clientSchema.pre 'validate', (next, done) ->
-  @slug = S(@name).slugify()
+  if @name?
+    @slug = S(@name).slugify()
   next()
-  done()
 
 Client = mongoose.model 'Client', clientSchema
 
 Client.deserialize = (params) ->
-  name: params.name
-  email: params.email
-  slug: params.slug
-  contact: params.contact
+  clientSchema.methods.serializeToObj.call params
 
 Client.params = (params) ->
   result = {}
