@@ -3,7 +3,9 @@ mongoose = require 'mongoose'
 taskSchema = new mongoose.Schema
   name:
     type: String
-    unique: true
+    required: true
+  clientId:
+    type: String
     required: true
 
 taskSchema.methods.serializeToObj = ->
@@ -18,8 +20,18 @@ taskSchema.methods.serialize = (meta) ->
 Task = mongoose.model 'Task', taskSchema
 
 Task.serialize = (tasks, meta) ->
-  tasks: tasks.map (client) -> client.serializeToObj()
+  tasks: tasks.map (task) -> task.serializeToObj()
   meta: meta
+
+Task.deserialize = (params) ->
+  name: params.name
+  clientId: params.clientId
+
+Task.params = (params) ->
+  result = {}
+  for p, v of this.deserialize params
+    if v? then result[p] = v
+  result
 
 
 module.exports = Task

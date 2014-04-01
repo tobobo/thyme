@@ -10,4 +10,6 @@ module.exports = (app) ->
   app.post '/clients', clients.new
 
   app.get '/tasks', tasks.index
+  app.post '/tasks', tasks.new
+
   app.get '/timers', timers.index
