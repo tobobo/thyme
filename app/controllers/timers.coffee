@@ -26,3 +26,12 @@ module.exports =
             error: error
         return
       res.send timer.serialize()
+
+  update: (req, res) ->
+    params = Timer.deserialize req.body.timer
+    Timer.findByIdAndUpdate req.param('timerId'), params, (error, timer) ->
+      if error?
+        console.log error
+      console.log 'timer is', timer
+      res.send timer.serialize()
+

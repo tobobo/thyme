@@ -14,3 +14,4 @@ module.exports = (app) ->
 
   app.get '/timers', timers.index
   app.post '/timers', timers.new
+  app.put '/timers/:timerId', timers.update
