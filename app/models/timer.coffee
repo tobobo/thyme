@@ -1,27 +1,33 @@
 mongoose = require 'mongoose'
 
 timerSchema = new mongoose.Schema
-  name:
-    startTime: Date
-    endTime: Date
-    running:
-      type: Boolean
-      default: false
+  taskId: String
+  startTime: Date
+  endTime: Date
+  running:
+    type: Boolean
+    default: false
 
 timerSchema.methods.serializeToObj = ->
   id: @id
-  name: @name
-  timerId: @timerId
+  startTime: @startTime
+  endTime: @endTime
+  running: @running
+  taskId: @taskId
 
 timerSchema.methods.serialize = (meta) ->
-  timer: @serializeToObj()
-  meta: meta
+  JSON.stringify
+    timer: @serializeToObj()
+    meta: meta
 
 Timer = mongoose.model 'Timer', timerSchema
 
-Timer.serialize = (tasks, meta) ->
-  timers: tasks.map (client) -> timer.serializeToObj()
-  meta: meta
+Timer.serialize = (timers, meta) ->
+  JSON.stringify
+    timers: timers.map (timer) -> timer.serializeToObj()
+    meta: meta
 
+Timer.deserialize = (params) ->
+  timerSchema.methods.serializeToObj.call params
 
 module.exports = Timer

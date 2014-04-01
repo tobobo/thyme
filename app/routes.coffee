@@ -13,3 +13,4 @@ module.exports = (app) ->
   app.post '/tasks', tasks.new
 
   app.get '/timers', timers.index
+  app.post '/timers', timers.new
