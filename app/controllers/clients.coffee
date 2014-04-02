@@ -9,7 +9,10 @@ module.exports =
       res.send
         meta:
           error: "Something went wrong"
-    
+
+  show: (req, res) ->
+    Client.findById(req.param('clientId')).exec().then (client) ->
+      res.send client.serialize()
 
   new: (req, res) ->
     params = Client.deserialize req.body.client
