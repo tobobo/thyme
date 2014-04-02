@@ -3,9 +3,9 @@ updateDurationFromTimers = require '../interactors/update_duration_from_timers'
 
 module.exports =
   index: (req, res) ->
-    Timer.find
-      taskId: req.query.taskId
-    .exec().then((timers) ->
+    params = Timer.params req.query
+    console.log 'params are', params
+    Timer.find(params).exec().then((timers) ->
       res.send Timer.serialize(timers)
     , (error) ->
       console.log 'timer error'

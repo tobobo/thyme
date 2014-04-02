@@ -35,4 +35,11 @@ Timer.serialize = (timers, meta) ->
 Timer.deserialize = (params) ->
   timerSchema.methods.serializeToObj.call params
 
+Timer.params = (params) ->
+  result = {}
+  for p, v of this.deserialize params
+    if v? then result[p] = v
+  result
+
+
 module.exports = Timer

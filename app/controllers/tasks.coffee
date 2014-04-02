@@ -3,6 +3,7 @@ Task = require '../models/task'
 module.exports =
   index: (req, res) ->
     params = Task.params req.query
+    console.log 'params are', params
     Task.find(params).exec().then (tasks) ->
       res.send Task.serialize(tasks)
     , (error) ->
