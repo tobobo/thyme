@@ -16,6 +16,8 @@ clientSchema = new mongoose.Schema
     lowercase: true
   contact:
     type: String
+  rate:
+    type: Number
 
 clientSchema.methods.serializeToObj = ->
   id: @id
@@ -23,6 +25,7 @@ clientSchema.methods.serializeToObj = ->
   name: @name
   contact: @contact
   slug: @slug
+  rate: @rate
 
 clientSchema.methods.serialize = (meta) ->
   client: @serializeToObj()
