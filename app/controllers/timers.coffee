@@ -1,4 +1,5 @@
 Timer = require '../models/timer'
+updateDurationFromTimers = require '../interactors/update_duration_from_timers'
 
 module.exports =
   index: (req, res) ->
@@ -25,13 +26,14 @@ module.exports =
           meta:
             error: error
         return
-      res.send timer.serialize()
+
+      updateDurationFromTimers(timer.taskId).then ->
+        res.send timer.serialize()
 
   update: (req, res) ->
     params = Timer.deserialize req.body.timer
-    Timer.findByIdAndUpdate req.param('timerId'), params, (error, timer) ->
-      if error?
-        console.log error
-      console.log 'timer is', timer
+    Timer.findByIdAndUpdate(req.param('timerId'), params).exec().then (timer) ->
+      updateDurationFromTimers(timer.taskId)
+    .then ->
       res.send timer.serialize()
 

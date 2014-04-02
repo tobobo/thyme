@@ -20,6 +20,11 @@ timerSchema.methods.serialize = (meta) ->
     timer: @serializeToObj()
     meta: meta
 
+timerSchema.methods.getDuration = ->
+  startTime = if @startTime then @startTime.getTime() else 0
+  endTime = if @endTime then @endTime.getTime() else 0
+  (endTime - startTime)/1000
+
 Timer = mongoose.model 'Timer', timerSchema
 
 Timer.serialize = (timers, meta) ->

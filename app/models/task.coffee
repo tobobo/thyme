@@ -11,12 +11,16 @@ taskSchema = new mongoose.Schema
   clientId:
     type: String
     required: true
+  duration:
+    type: Number
+    default: 0
 
 taskSchema.methods.serializeToObj = ->
   id: @id
   name: @name
   slug: @slug
   clientId: @clientId
+  duration: @duration
 
 taskSchema.methods.serialize = (meta) ->
   task: @serializeToObj()
