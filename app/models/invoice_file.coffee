@@ -6,7 +6,8 @@ module.exports = (app) ->
   class InvoiceFile
     constructor: (@invoice) ->
       @tmpPath = path.join app.config.dirname, "tmp/#{@invoice.id}.pdf"
-      @path = path.join app.config.dirname, "files/invoices/#{@invoice.id}.pdf"
+      @relUrl = "files/invoices/#{@invoice.id}.pdf"
+      @path = path.join app.config.dirname, @relUrl
 
     save: ->
       @createTmp().then =>
@@ -28,4 +29,5 @@ module.exports = (app) ->
           fs.writeFile @path, data, (err) =>
             resolve @
 
+    url: -> "http://#{app.config.host}/#{@relUrl}"
 
