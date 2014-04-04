@@ -15,5 +15,3 @@ module.exports = (app) ->
       res.send JSON.stringify
         meta:
           error: error
-
-

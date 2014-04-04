@@ -1,8 +1,9 @@
+Invoice = require '../models/invoice'
+
 module.exports = (app) ->
 
   RSVP = require 'rsvp'
 
-  Invoice = require('../models/invoice') app
   InvoiceFile = require('../models/invoice_file') app
 
   (invoice) ->
