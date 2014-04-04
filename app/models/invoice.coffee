@@ -1,7 +1,6 @@
 module.exports = (app) ->
 
   mongoose = require 'mongoose'
-  phantom = require 'phantom'
 
   invoiceSchema = new mongoose.Schema
     number:
@@ -22,17 +21,12 @@ module.exports = (app) ->
     html: @html
 
   invoiceSchema.methods.serialize = (meta) ->
-    client: @serializeToObj()
+    invoice: @serializeToObj()
     meta: meta
 
-  invoiceSchema.pre 'save', (next, done) ->
-    app.phantom.createPage (page) =>
-      page.setPaperSize
-        format: 'letter'
-      , =>
-        page.setContent @html
-        page.render 'tmp/invoice.pdf'
-        next()
+  invoiceSchema.pre 'save', (next) ->
+    
+    next()
 
   Invoice = mongoose.model 'Invoice', invoiceSchema
 

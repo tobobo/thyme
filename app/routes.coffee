@@ -20,3 +20,4 @@ module.exports = (app) ->
   app.put '/timers/:timerId', timers.update
 
   app.post '/invoices', invoices.new
+  app.get '/invoices/:invoiceId', invoices.show

@@ -1,6 +1,11 @@
 module.exports = (app) ->
   Invoice = require('../models/invoice') app
-  
+  InvoiceFile = require('../models/invoice_file') app
+
+  show: (req, res) ->
+    Invoice.findById(req.param('invoiceId')).then (invoice) =>
+      res.send invoice.serialize()
+
   new: (req, res) ->
     params = Invoice.deserialize req.body.invoice
     newInvoice = new Invoice(params)
@@ -12,6 +17,8 @@ module.exports = (app) ->
             error: error
         return
 
-      res.send invoice.serialize()
+      file = new InvoiceFile(invoice)
+      file.save().then =>
+        res.send invoice.serialize()
 
 

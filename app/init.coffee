@@ -2,6 +2,7 @@ phantom = require './phantom'
 express = require 'express'
 middleware = require './middleware'
 routes = require './routes'
+db = require './db'
 
 module.exports = (config) ->
 
@@ -9,11 +10,11 @@ module.exports = (config) ->
 
   app.config = config
 
-  db = require('./db') app.config
+  app.db = db app
 
   phantom app
 
-  middleware app.config, app, db
+  middleware app
 
   routes app
 

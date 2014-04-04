@@ -1,6 +1,6 @@
 mongoose = require 'mongoose'
 
-module.exports = (config) ->
+module.exports = (app) ->
 
   reconnectTimer = 1
 
@@ -19,6 +19,6 @@ module.exports = (config) ->
       connect()
     , reconnectTimer*1000
 
-  mongoose.connect config.db.url
+  mongoose.connect app.config.db.url
 
   mongoose

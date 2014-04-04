@@ -1,24 +1,25 @@
 express = require 'express'
 passport = require 'passport'
+path = require 'path'
 MongoStore = require('connect-mongo') express
 
-module.exports = (config, app, db) ->
+module.exports = (app) ->
   app.use express.static('public')
   app.use express.bodyParser()
   app.use express.methodOverride()
-  app.use express.cookieParser(config.session.cookie_secret)
+  app.use express.cookieParser(app.config.session.cookie_secret)
 
-  connection = db.connections[0]
+  connection = app.db.connections[0]
   app.use express.session
-    secret: config.session.secret
+    secret: app.config.session.secret
     store: new MongoStore
       collection: 'sessions'
-      url: config.db.url
+      url: app.config.db.url
     , (db) ->
       console.log 'mongo store connected'
     cookie:
       maxAge: 60*60*1000
-      domain: config.session.cookie_domain
+      domain: app.config.session.cookie_domain
 
   app.use (req, res, next) ->
     originValid = false
@@ -36,3 +37,5 @@ module.exports = (config, app, db) ->
 
   app.use passport.initialize()
   app.use passport.session()
+
+  app.use '/files', express.static(path.join(app.config.dirname, 'files'))
