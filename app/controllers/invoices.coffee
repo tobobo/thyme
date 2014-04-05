@@ -3,8 +3,18 @@ module.exports = (app) ->
 
   saveInvoiceAndCreateFile = require('../interactors/save_invoice_and_create_file') app
 
+  index: (req, res) ->
+    params = Invoice.params req.query
+    console.log 'INVOICE PARAMS', params
+    Invoice.find(params).exec().then (invoices) =>
+      res.send Invoice.serialize(invoices)
+    , (error) =>
+      res.send JSON.stringify
+        meta:
+          error: error
+
   show: (req, res) ->
-    Invoice.findById(req.param('invoiceId')).then (invoice) =>
+    Invoice.findById(req.param('invoiceId')).exec().then (invoice) =>
       res.send invoice.serialize()
 
   new: (req, res) ->

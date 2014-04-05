@@ -28,6 +28,14 @@ module.exports =
       updateDurationFromTimers(timer.taskId).then ->
         res.send timer.serialize()
 
+  delete: (req, res) ->
+    Timer.findByIdAndRemove req.param('timerId')
+    .exec().then (error) =>
+      console.log 'finished', error
+      res.send
+        meta:
+          success: true
+
   update: (req, res) ->
     params = Timer.deserialize req.body.timer
     Timer.findByIdAndUpdate(req.param('timerId'), params).exec().then (timer) ->

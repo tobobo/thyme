@@ -6,7 +6,7 @@ module.exports = (app) ->
   class InvoiceFile
     constructor: (@invoice) ->
       @tmpPath = path.join app.config.dirname, "tmp/#{@invoice.id}.pdf"
-      @relUrl = "files/invoices/#{@invoice.id}.pdf"
+      @relUrl = "files/invoices/#{@invoice.id}/#{@invoice.number}.pdf"
       @path = path.join app.config.dirname, @relUrl
 
     save: ->

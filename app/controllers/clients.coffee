@@ -18,6 +18,7 @@ module.exports =
     params = Client.deserialize req.body.client
     newClient = new Client(params)
     newClient.save (error, client) ->
+      console.log 'next invoice', client.nextInvoice
       if error
         res.statusCode = 422
         res.send JSON.serialize
@@ -27,4 +28,7 @@ module.exports =
 
       res.send client.serialize()
 
-
+  update: (req, res) ->
+    params = Client.params req.body.client
+    Client.findByIdAndUpdate(req.param('clientId'), params).exec().then (client) ->
+      res.send client.serialize()

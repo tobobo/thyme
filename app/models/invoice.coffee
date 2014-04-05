@@ -22,8 +22,9 @@ invoiceSchema.methods.serializeToObj = ->
   clientId: @clientId
   html: @html
   path: @path
+  createdAt: @createdAt
   fileUrl: @fileUrl
-
+  
 invoiceSchema.methods.serialize = (meta) ->
   invoice: @serializeToObj()
   meta: meta
