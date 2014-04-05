@@ -15,7 +15,7 @@ module.exports =
       res.send client.serialize()
 
   new: (req, res) ->
-    params = Client.deserialize req.body.client
+    params = Client.params req.body.client
     newClient = new Client(params)
     newClient.save (error, client) ->
       console.log 'next invoice', client.nextInvoice

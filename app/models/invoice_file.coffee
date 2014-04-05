@@ -1,6 +1,7 @@
 module.exports = (app) ->
   RSVP = require 'rsvp'
   fs = require 'fs'
+  writefile = require 'writefile'
   path = require 'path'
 
   class InvoiceFile
@@ -26,7 +27,7 @@ module.exports = (app) ->
     moveFile: ->
       new RSVP.Promise (resolve, reject) =>
         fs.readFile @tmpPath, (err, data) =>
-          fs.writeFile @path, data, (err) =>
+          writefile @path, data, (err) =>
             resolve @
 
     url: -> "http://#{app.config.host}/#{@relUrl}"

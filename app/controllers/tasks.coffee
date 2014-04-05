@@ -15,7 +15,7 @@ module.exports =
       res.send task.serialize()
 
   new: (req, res) ->
-    params = Task.deserialize req.body.task
+    params = Task.params req.body.task
     newTask = new Task(params)
     newTask.save (error, task) ->
       if error

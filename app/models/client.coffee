@@ -24,7 +24,6 @@ clientSchema = new mongoose.Schema
     default: 1
 
 clientSchema.methods.serializeToObj = ->
-  console.log this
   id: @id
   email: @email
   name: @name

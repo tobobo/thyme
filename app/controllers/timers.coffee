@@ -15,7 +15,7 @@ module.exports =
 
 
   new: (req, res) ->
-    params = Timer.deserialize req.body.timer
+    params = Timer.params req.body.timer
     newTimer = new Timer(params)
     newTimer.save (error, timer) ->
       if error

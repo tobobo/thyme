@@ -18,7 +18,7 @@ module.exports = (app) ->
       res.send invoice.serialize()
 
   new: (req, res) ->
-    params = Invoice.deserialize req.body.invoice
+    params = Invoice.params req.body.invoice
     saveInvoiceAndCreateFile(new Invoice(params)).then (invoice) =>
       res.send invoice.serialize()
     , (error) =>
