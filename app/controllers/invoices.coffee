@@ -5,7 +5,6 @@ module.exports = (app) ->
 
   index: (req, res) ->
     params = Invoice.params req.query
-    console.log 'INVOICE PARAMS', params
     Invoice.find(params).exec().then (invoices) =>
       res.send Invoice.serialize(invoices)
     , (error) =>

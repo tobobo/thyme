@@ -8,7 +8,7 @@ module.exports =
       res.send Timer.serialize(timers)
     , (error) ->
       res.statusCode = 500
-      res.send JSON.serialize
+      res.send JSON.stringify
         meta:
           error: "Something went wrong"
     )
@@ -31,7 +31,6 @@ module.exports =
   delete: (req, res) ->
     Timer.findByIdAndRemove req.param('timerId')
     .exec().then (error) =>
-      console.log 'finished', error
       res.send
         meta:
           success: true

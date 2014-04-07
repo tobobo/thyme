@@ -18,10 +18,9 @@ module.exports =
     params = Client.params req.body.client
     newClient = new Client(params)
     newClient.save (error, client) ->
-      console.log 'next invoice', client.nextInvoice
       if error
         res.statusCode = 422
-        res.send JSON.serialize
+        res.send JSON.stringify
           meta:
             error: error
         return
