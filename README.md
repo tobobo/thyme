@@ -1,8 +1,8 @@
-#### thyme-backend
+# thyme-backend
 
 A backend for a time tracker.
 
-### Heroku Deployment
+## Heroku Deployment
 
 Create a heroku app (for example, for an app called my-thyme-app). If you run this command from the project directory, it will add the remote `heroku` for you. Which is handy.
 ```
