@@ -8,14 +8,14 @@ module.exports =
       res.send Timer.serialize(timers)
     , (error) ->
       res.statusCode = 500
-      res.send JSON.serialize
+      res.send JSON.stringify
         meta:
           error: "Something went wrong"
     )
 
 
   new: (req, res) ->
-    params = Timer.deserialize req.body.timer
+    params = Timer.params req.body.timer
     newTimer = new Timer(params)
     newTimer.save (error, timer) ->
       if error
@@ -28,23 +28,19 @@ module.exports =
       updateDurationFromTimers(timer.taskId).then ->
         res.send timer.serialize()
 
+  delete: (req, res) ->
+    Timer.findByIdAndRemove req.param('timerId')
+    .exec().then (error) =>
+      res.send
+        meta:
+          success: true
+
   update: (req, res) ->
     params = Timer.deserialize req.body.timer
-    Timer.findByIdAndUpdate req.param('timerId'), params, (error, timer) ->
-      updateDurationFromTimers(timer.taskId).then ->
-        res.send timer.serialize()
-
-  delete: (req, res) ->
-    taskId = null
-    Timer.findById(req.param('timerId')).exec().then (timer) ->
-      console.log 'got timer', timer
-      taskId = timer.taskId
-      console.log 'here'
-      timer.remove (error, timer) ->
-        console.log 'timer remove cb'
-        updateDurationFromTimers(taskId).then ->
-          console.log 'updated duration'
-          console.log 'serializing timer'
-          res.send JSON.stringify
-            timer: null
+    theTimer = null
+    Timer.findByIdAndUpdate(req.param('timerId'), params).exec().then (timer) ->
+      theTimer = timer
+      updateDurationFromTimers(timer.taskId)
+    .then ->
+      res.send theTimer.serialize()
 

@@ -18,6 +18,10 @@ clientSchema = new mongoose.Schema
     type: String
   rate:
     type: Number
+  invoicePrefix: String
+  nextInvoice:
+    type: Number
+    default: 1
 
 clientSchema.methods.serializeToObj = ->
   id: @id
@@ -26,6 +30,8 @@ clientSchema.methods.serializeToObj = ->
   contact: @contact
   slug: @slug
   rate: @rate
+  invoicePrefix: @invoicePrefix
+  nextInvoice: @nextInvoice
 
 clientSchema.methods.serialize = (meta) ->
   client: @serializeToObj()

@@ -1,14 +1,16 @@
-index = require './controllers/index'
-clients = require './controllers/clients'
-tasks = require './controllers/tasks'
-timers = require './controllers/timers'
-
 module.exports = (app) ->
+  index = require './controllers/index'
+  clients = require './controllers/clients'
+  tasks = require './controllers/tasks'
+  timers = require './controllers/timers'
+  invoices = require('./controllers/invoices') app
+
   app.get '/', index
 
   app.get '/clients', clients.index
   app.post '/clients', clients.new
   app.get '/clients/:clientId', clients.show
+  app.put '/clients/:clientId', clients.update
 
   app.get '/tasks', tasks.index
   app.post '/tasks', tasks.new
@@ -18,3 +20,7 @@ module.exports = (app) ->
   app.post '/timers', timers.new
   app.put '/timers/:timerId', timers.update
   app.delete '/timers/:timerId', timers.delete
+
+  app.get '/invoices', invoices.index
+  app.post '/invoices', invoices.new
+  app.get '/invoices/:invoiceId', invoices.show

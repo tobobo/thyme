@@ -15,16 +15,19 @@ module.exports =
       res.send client.serialize()
 
   new: (req, res) ->
-    params = Client.deserialize req.body.client
+    params = Client.params req.body.client
     newClient = new Client(params)
     newClient.save (error, client) ->
       if error
         res.statusCode = 422
-        res.send JSON.serialize
+        res.send JSON.stringify
           meta:
             error: error
         return
 
       res.send client.serialize()
 
-
+  update: (req, res) ->
+    params = Client.params req.body.client
+    Client.findByIdAndUpdate(req.param('clientId'), params).exec().then (client) ->
+      res.send client.serialize()
