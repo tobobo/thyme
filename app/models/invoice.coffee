@@ -14,6 +14,10 @@ invoiceSchema = new mongoose.Schema
     type: String
   fileUrl:
     type: String
+  startDate:
+    type: Date
+  endDate:
+    type: Date
 
 
 invoiceSchema.methods.serializeToObj = ->
@@ -24,6 +28,8 @@ invoiceSchema.methods.serializeToObj = ->
   path: @path
   createdAt: @createdAt
   fileUrl: @fileUrl
+  startDate: @startDate
+  endDate: @endDate
   
 invoiceSchema.methods.serialize = (meta) ->
   invoice: @serializeToObj()

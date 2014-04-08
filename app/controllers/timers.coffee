@@ -37,8 +37,10 @@ module.exports =
 
   update: (req, res) ->
     params = Timer.deserialize req.body.timer
+    theTimer = null
     Timer.findByIdAndUpdate(req.param('timerId'), params).exec().then (timer) ->
+      theTimer = timer
       updateDurationFromTimers(timer.taskId)
     .then ->
-      res.send timer.serialize()
+      res.send theTimer.serialize()
 
