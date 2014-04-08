@@ -1,4 +1,4 @@
-# phantom = require './phantom'
+phantom = require './phantom'
 express = require 'express'
 middleware = require './middleware'
 routes = require './routes'
