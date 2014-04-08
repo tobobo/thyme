@@ -35,13 +35,6 @@ invoiceSchema.methods.serialize = (meta) ->
   invoice: @serializeToObj()
   meta: meta
 
-invoiceSchema.pre 'save', (next) ->
-  flag = '<!--FLAG!!!-->'
-  unless @html.match(flag)?
-    @html = flag + @html.replace(/invoice-container/g, "invoice-container-#{Math.round(Math.random()*1000000)}")
-    console.log @html
-  next()
-
 Invoice = mongoose.model 'Invoice', invoiceSchema
 
 Invoice.deserialize = (params) ->
