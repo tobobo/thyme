@@ -1,10 +1,10 @@
 module.exports = 
   port: Number(process.env.PORT or 8888)
-  host: 'localhost:8888'
+  host: process.env.THYME_HOST or 'localhost:8888'
   dirname: __dirname 
   db:
-    url: 'mongodb://localhost/thyme-dev'
+    url: process.env.THYME_DB_URL or 'mongodb://localhost/thyme-dev'
   session:
-    secret: 'illlklklklk'
-    cookie_secret: 'slfklksdjf'
-    cookie_domain: 'localhost'
+    secret: process.env.THYME_SESSION_SECRET or 'illlklklklk'
+    cookie_secret: process.env.THYME_COOKIE_SECRET or 'slfklksdjf'
+    cookie_domain: process.env.THYME_COOKIE_DOMAIN or 'localhost'
