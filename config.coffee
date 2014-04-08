@@ -3,7 +3,7 @@ module.exports =
   host: process.env.THYME_HOST or 'localhost:8888'
   clients: [
     /localhost:.*/,
-    /thyme-frontend.s3-website-us-west-1.amazonaws.com/
+    'thyme-frontend.s3-website-us-west-1.amazonaws.com'
   ]
   dirname: __dirname 
   db:

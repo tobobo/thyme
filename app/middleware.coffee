@@ -24,9 +24,9 @@ module.exports = (app) ->
   app.use (req, res, next) ->
     originValid = false
     for host in app.config.clients
-      if host.test req.headers.origin
-        originValid = true
-        break
+      if typeof host == 'string' then host = new RegExp(host)
+      originValid = host.test req.headers.origin
+      if originValid then break
     if originValid
       res.header 'Access-Control-Allow-Origin', req.headers.origin
       res.header 'Access-Control-Allow-Credentials', true
