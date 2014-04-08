@@ -12,7 +12,7 @@ module.exports = (config) ->
 
   app.db = db app
 
-  # phantom app
+  phantom app
 
   middleware app
 
