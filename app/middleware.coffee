@@ -23,7 +23,7 @@ module.exports = (app) ->
 
   app.use (req, res, next) ->
     originValid = false
-    for host in [/localhost:.*/]
+    for host in app.config.clients
       if host.test req.headers.origin
         originValid = true
         break
