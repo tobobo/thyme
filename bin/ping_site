@@ -1,0 +1,9 @@
+#!/usr/bin/env coffee
+
+request = require 'request'
+
+request.get 'http://thyme-backend.herokuapp.com', (error, response, body) ->
+  if error
+    console.log 'error pinging thyme backend'
+  else
+    console.log 'ping to thyme backend successful'
